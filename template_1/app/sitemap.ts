@@ -1,0 +1,3 @@
+import type { MetadataRoute } from "next";
+import { articles, categories } from "@/lib/data";
+export default function sitemap(): MetadataRoute.Sitemap { const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"; return [{ url: baseUrl, lastModified: new Date(), changeFrequency: "daily", priority: 1 }, ...categories.map((category) => ({ url: `${baseUrl}/kategori/${category.slug}`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.7 })), ...articles.map((article) => ({ url: `${baseUrl}/berita/${article.slug}`, lastModified: new Date(article.publishedAt), changeFrequency: "weekly" as const, priority: 0.8 }))]; }

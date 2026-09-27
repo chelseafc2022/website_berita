@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; --font-sans: "Arial", sans-serif; --font-display: Georgia, "Times New Roman", serif; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: #f7f8fc; color: #10233f; }
+a { text-decoration: none; }
+
+.container-page { @apply mx-auto w-full max-w-[1180px] px-5 md:px-8; }
+.eyebrow { @apply text-[11px] font-bold uppercase tracking-[0.18em] text-brand; }
+.section-title { @apply font-display text-3xl font-bold tracking-tight text-ink md:text-4xl; }
+.article-copy p { @apply mb-6 text-[17px] leading-8 text-slate-700 md:text-lg; }
+.article-copy h2 { @apply mb-4 mt-10 font-display text-3xl font-bold text-ink; }
+.article-copy blockquote { @apply my-8 border-l-4 border-brand pl-5 font-display text-2xl leading-9 text-ink; }
+.article-copy ul { @apply mb-6 list-disc space-y-2 pl-5 text-[17px] leading-8 text-slate-700; }
+.ad-pattern { background-image: radial-gradient(rgba(16,35,63,.12) 1px, transparent 1px); background-size: 8px 8px; }
+
+@media (max-width: 767px) {
+  .article-copy p { font-size: 16px; line-height: 1.8; }
+}

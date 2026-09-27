@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { Logo } from "./logo";
+
+const menus = [{ href: "/admin", label: "Ringkasan", icon: "▦" }, { href: "/admin/berita", label: "Berita", icon: "▤" }, { href: "/admin/kategori", label: "Kategori", icon: "◫" }];
+export function AdminSidebar({ current }: { current: string }) { return <aside className="flex shrink-0 flex-col bg-ink px-5 py-6 text-white md:w-60"><Logo light /><p className="mt-9 px-3 text-[10px] font-bold uppercase tracking-[.2em] text-slate-400">Menu utama</p><nav className="mt-3 grid gap-1">{menus.map((menu) => <Link href={menu.href} className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold ${current === menu.href ? "bg-white/15 text-white" : "text-slate-300 hover:bg-white/10 hover:text-white"}`} key={menu.href}><span className="text-base">{menu.icon}</span>{menu.label}</Link>)}</nav><div className="mt-auto rounded-xl bg-white/10 p-3"><p className="text-xs font-bold">Admin NusaKabar</p><p className="mt-1 text-xs text-slate-400">redaksi@nusakabar.id</p><Link href="/" className="mt-3 block text-xs font-bold text-[#FE9D8E]">← Lihat situs</Link></div></aside>; }

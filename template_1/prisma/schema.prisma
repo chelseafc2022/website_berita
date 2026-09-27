@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum AdvertisementPosition {
+  TOP
+  SIDEBAR
+  ARTICLE
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(EDITOR)
+  articles     Article[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  articles    Article[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+}
+
+model Article {
+  id            String        @id @default(cuid())
+  title         String
+  slug          String        @unique
+  excerpt       String
+  content       String        @db.Text
+  featuredImage String
+  imageCaption  String?
+  categoryId    String
+  authorId      String
+  status        ArticleStatus @default(DRAFT)
+  isBreaking    Boolean       @default(false)
+  publishedAt   DateTime?
+  views         Int           @default(0)
+  category      Category      @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  author        User          @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([slug])
+  @@index([status, publishedAt])
+  @@index([categoryId, publishedAt])
+  @@index([views])
+}
+
+model Advertisement {
+  id        String                @id @default(cuid())
+  name      String
+  image     String
+  url       String
+  position  AdvertisementPosition
+  isActive  Boolean               @default(true)
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+
+  @@index([position, isActive])
+}
